@@ -1,18 +1,18 @@
 import React from 'react'
 import styled from 'styled-components';
+import NavBarItems from '../Menu/NavBarItems';
 
 const Menu = () => {
     return (
         <Container>
-            Menu
+            <NavBarItems />
         </Container>
       )
     }
     
 const Container = styled.div`
     grid-area: nav;
-    text-align: center;
-    background-color: antiquewhite;
+    background-color: #eeefff;
 `;
 
 export default Menu;

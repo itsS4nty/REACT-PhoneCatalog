@@ -5,6 +5,8 @@ import PhoneCard from '../Phones/PhoneCard';
 const Catalog = () => {
     const data = {
         name: 'iPhone 11',
+        ram: '4',
+        color: 'Red',
         price: 599,
         image: 'https://cdn.palbincdn.com/users/40360/images/iphone11-red-select-2019_GEO_EMEA-1610302194.png'
     }

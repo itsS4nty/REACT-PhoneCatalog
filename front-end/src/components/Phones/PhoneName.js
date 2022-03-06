@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const PhoneName = ({ name }) => {
+const PhoneName = ({ name, ram, color }) => {
     return (
       <Container>
-          <Name>{name}</Name>
+          <Name>{name} {ram}GB {color}</Name>
       </Container>
     )
 }

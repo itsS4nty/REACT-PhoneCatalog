@@ -47,8 +47,10 @@ const Container = styled.div`
     background-color: #fff;
     color: #444;
     @media (max-width: 768px) {
+        grid-template-rows: auto;
         grid-template-areas: 
             'header header'
+            'nav nav'
             'nav nav'
             'catalog catalog'
             'footer footer'

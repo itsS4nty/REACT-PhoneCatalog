@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import MoreInfo from './MoreInfo';
 import PhoneImage from './PhoneImage';
 import PhoneName from './PhoneName';
 import PhonePrice from './PhonePrice';
@@ -8,8 +9,9 @@ const PhoneCard = ({ data }) => {
   return (
     <Container>
       <PhoneImage img={data.image} name={data.name} />
-      <PhoneName name={data.name} />
+      <PhoneName name={data.name} ram={data.ram} color={data.color} />
       <PhonePrice price={data.price} />
+      <MoreInfo />
     </Container>
   )
 }
