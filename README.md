@@ -23,14 +23,14 @@ the **phones**. <br />
 ```
 ## Run options
 ### Run it remotelly
-To run the frontend, you need to go to the front-end folder, and write this commands:
+To run the frontend, you need to go to the ***front-end folder***, and write this commands:
 ```
 npm i
 npm start
 ```
 The backend is hosted on my own server, so you don't need to do anything on that. 
 ### Run it in local
-In case that you want to run it in local, you have to go to the rest-api folder and write this commands:
+In case that you want to run it in local, you have to go to the ***rest-api folder*** and write this commands:
 ```
 npm i
 npm run dev
