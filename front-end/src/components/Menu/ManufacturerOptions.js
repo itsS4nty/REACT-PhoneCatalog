@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { updateManufacturers } from '../../reducers/filtersReducer';
+import spinner from '../../assets/gifs/spinner.gif';
 
 const ManufacturerOptions = () => {
   const [activeManufacturers, setActiveManufacturers] = useState({});
@@ -33,11 +34,14 @@ const ManufacturerOptions = () => {
     <>
       <hr />
       <Title>Manufacturer</Title>
-      <Container>
         {
-          manufacturers.map((data, index) => <Button key={index} id={data._id} type='button' value={data.name} onClick={handleOnClick} active={activeManufacturers[data._id]} />)
+        manufacturers.length ? <Container>
+          { manufacturers.map((data, index) => <Button key={index} id={data._id} type='button' value={data.name} onClick={handleOnClick} active={activeManufacturers[data._id]} />) }
+        </Container>
+        :
+        <img src={spinner} alt='Spinner' width='250' height='150' />
+        
         }
-      </Container>
       <hr />
     </>
 

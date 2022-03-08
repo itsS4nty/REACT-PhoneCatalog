@@ -6,13 +6,27 @@ import { change_variable } from '../../reducers/newManufacturerReducer';
 
 const AddPhone = () => {
   const [manufacturers, setManufacturers] = useState([]);
-  const [newPhoneData, setNewPhoneData] = useState({});
+  const [newPhoneData, setNewPhoneData] = useState({
+    name: '',
+    manufacturer: '',
+    description: '',
+    color: '',
+    price: '',
+    screen: '',
+    processor: '',
+    ram: '',
+    storage: '', 
+  });
   const [image, setImage] = useState({file: ''});
   const variable = useSelector(change_variable);
   useEffect(() => {
     const source = axios.CancelToken.source();
     axios.get('/manufacturers', { cancelToken: source.token, }).then(({ data }) => {
       setManufacturers(data);
+      setNewPhoneData({
+        ...newPhoneData,
+        manufacturer: data[0].name,
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -47,20 +61,20 @@ const AddPhone = () => {
     <Container>
       <Title>Add phone</Title>
       <Form>
-        <InputText type='text' name='name' placeholder='Phone name' onChange={handleOnChange}  />
-        <Select name='manufacturer' onChange={handleOnChange}>
+        <InputText type='text' name='name' placeholder='Phone name' value={newPhoneData.name} onChange={handleOnChange}  />
+        {manufacturers.length && <Select name='manufacturer' value={newPhoneData.manufacturer} onChange={handleOnChange}>
           {
             manufacturers.map((data, index) => <option key={index} value={data.name}>{data.name}</option> )  
           }
-        </Select>
-        <InputText type='text' name='description' placeholder='Description' onChange={handleOnChange}  />
-        <InputText type='text' name='color' placeholder='Color' onChange={handleOnChange}  />
-        <InputText type='number' name='price' placeholder='Price' onChange={handleOnChange}  />
+        </Select>}
+        <InputText type='text' name='description' placeholder='Description' value={newPhoneData.description} onChange={handleOnChange}  />
+        <InputText type='text' name='color' placeholder='Color' value={newPhoneData.color} onChange={handleOnChange}  />
+        <InputText type='number' name='price' placeholder='Price' value={newPhoneData.price} onChange={handleOnChange}  />
         <InputFile type='file' name='image' placeholder='Image' onChange={handleOnChange}  />
-        <InputText type='text' name='screen' placeholder='Screen' onChange={handleOnChange}  />
-        <InputText type='text' name='processor' placeholder='Processor' onChange={handleOnChange}  />
-        <InputText type='number' name='ram' placeholder='RAM' onChange={handleOnChange}  />
-        <InputText type='number' name='storage' placeholder='Storage' onChange={handleOnChange}  />
+        <InputText type='text' name='screen' placeholder='Screen' value={newPhoneData.screen} onChange={handleOnChange}  />
+        <InputText type='text' name='processor' placeholder='Processor' value={newPhoneData.processor} onChange={handleOnChange}  />
+        <InputText type='number' name='ram' placeholder='RAM' value={newPhoneData.ram} onChange={handleOnChange}  />
+        <InputText type='number' name='storage' placeholder='Storage' value={newPhoneData.storage} onChange={handleOnChange}  />
         <InputSubmit type='submit' onClick={createPhone}>Create</InputSubmit>
       </Form>
     </Container>

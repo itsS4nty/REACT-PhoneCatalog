@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { manufacturers, minPrice, maxPrice, storage } from '../../reducers/filtersReducer';
 import PhoneCard from '../Phones/PhoneCard';
+import spinner from '../../assets/gifs/spinner.gif';
 
 const Catalog = ({ phoneInfo }) => {
     const [phones, setPhones] = useState([]);
@@ -27,11 +28,16 @@ const Catalog = ({ phoneInfo }) => {
     
     return (
         <Container>
-            <PhonesContainer>
-                {
-                    phones.map((data, index) => <PhoneCard key={index} data={data} phoneInfo={phoneInfo} /> )
-                }
-            </PhonesContainer>
+        {
+            phones.length ?
+                <PhonesContainer>
+                    {
+                        phones.map((data, index) => <PhoneCard key={index} data={data} phoneInfo={phoneInfo} /> )
+                    }
+                </PhonesContainer>
+            :
+            <img src={spinner} alt='Spinner' />
+        }
         </Container>
     )
 }

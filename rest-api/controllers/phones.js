@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 const PhoneCatalog = mongoose.model("phones");
+const fs = require('fs');
 
 exports.findAllPhones = (req, res) => {
   console.log((req.query.manufacturers))
-  const query = { 
+  const query = req.query.all ? {} : { 
     manufacturer: req.query.manufacturers !== '' ? { $in: (req.query.manufacturers).split(',') } : {$exists: true},
     $and: [{ price: { $gte: req.query.minPrice } }, { price: { $lte: req.query.maxPrice } }],
     storage: req.query.storage ? { $gte: req.query.storage } : { $gte: 8 } ,
@@ -35,21 +36,34 @@ exports.findPhoneById = (req, res) => {
 };
 
 exports.createPhone = (req, res) => {
-    const { name, manufacturer, description, color, price, imageFileName, screen, processor, ram } = req.body;
+    const { name, manufacturer, description, color, price, imageFileName, screen, processor, ram,
+    storage } = JSON.parse(req.body.data);
+    console.log(req.body)
     const newPhone = new PhoneCatalog({
         name,
         manufacturer,
         description,
         color,
         price,
-        imageFileName,
+        imageFileName: `${name.replace(/\s/g, '')}/image_${name}.jpg`,
         screen,
         processor,
         ram,
+        storage,
     });
     newPhone.save((err, phone) => {
         if(err) return res.status(500).send(err.message);
         console.log('POST /create-phone');
+        fs.readdir('./uploads/', (err, files) => {
+          files.forEach(file => {
+              if(file === `image_${name}.jpg`) {
+                if (!fs.existsSync(`./images/${name.replace(/\s/g, '')}`)){
+                    fs.mkdirSync(`./images/${name.replace(/\s/g, '')}`);
+                }
+                fs.renameSync(`./uploads/${file}`, `./images/${name.replace(/\s/g, '')}/${file}`);
+              }
+          });
+      });
         res.status(200).jsonp(phone);
     })
 }
@@ -70,8 +84,8 @@ exports.updatePhone = (req, res) => {
 
 exports.deletePhone = (req, res) => {
     PhoneCatalog.findByIdAndRemove(req.params.id, (err, phone) => {
-        if(err) return res.status(500).send(err.message);
-        console.log(`DELETE /phone/${req.params.id}`);
-        res.status(200).send();
+      if(err) return res.status(500).send(err.message);
+      console.log(`DELETE /phone/${req.params.id}`);
+      res.status(200).send();
     })
 }

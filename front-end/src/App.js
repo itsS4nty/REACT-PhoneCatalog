@@ -10,7 +10,7 @@ import {
 import { Redirect } from 'react-router'
 import Admin from "./views/Admin";
 
-axios.defaults.baseURL = 'http://localhost:3030/'
+axios.defaults.baseURL = 'http://193.70.1.70:5050/';
 
 function App() {
   return (

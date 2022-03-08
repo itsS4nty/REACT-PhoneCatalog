@@ -11,15 +11,26 @@ mongoose.connect('mongodb://localhost/PhoneCatalog', (err, res) => {
     if(err) throw err;
 });
 
-const storage	=	multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, './uploads');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads');
   },
-  filename: function (req, file, callback) {
-    callback(null, file.fieldname + '-' + Date.now() + '.' + mime.extension(file.mimetype));
+  filename: (req, file, cb) => {
+      const fileName = file.originalname.toLowerCase();
+      cb(null, fileName)
   }
 });
-const upload = multer({ storage : storage }).array('userPic');
+var upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+      if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+          cb(null, true);
+      } else {
+          cb(null, false);
+          return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+      }
+  }
+});
 
 const phoneModels = require('./models/phones')(app, mongoose);
 const manufacturersModels = require('./models/manufacturers')(app, mongoose);
@@ -37,10 +48,8 @@ app.use(router)
 router.route('/phones').get(PhonesController.findAllPhones);
 
 // router.route('/create-phone').post(PhonesController.createPhone);
-router.post('/create-phone', (req, res) => {
-  upload(req, res, (err) => {
-    console.log(req.files);
-  })
+router.post('/create-phone', upload.array('phoneImage', 1), (req, res) => {
+  PhonesController.createPhone(req, res);
 })
 
 router.route('/phone/:id')

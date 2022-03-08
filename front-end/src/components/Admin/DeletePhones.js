@@ -7,25 +7,33 @@ const DeletePhones = () => {
     const [phones, setPhones] = useState([]);
     useEffect(() => {
         const source = axios.CancelToken.source();
-        axios.get('/phones?all=true', { cancelToken: source.token, }).then(({ data }) => {
-          setPhones(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        getPhones(source);
         return () => {
           source.cancel();
         };
-    }, [])
+    }, []);
+    const getPhones = (source) => {
+        axios.get('/phones?all=true', { cancelToken: source.token, }).then(({ data }) => {
+            setPhones(data);
+        })
+        .catch((err) => {
+        console.log(err);
+        });
+    }
+    const deletePhone = (e) => {
+        e.preventDefault();
+        const source = axios.CancelToken.source();
+        console.log(e.target.id)
+        axios.delete(`/phone/${e.target.id}`, { id: e.target.id }).then((data) => {
+            getPhones(source);
+        });
+        
+    }
     return (
         <Container>
           <Title>Phones list</Title>
           {
-              phones.map((data, index) => 
-                <>
-                    <Phone>{data.name} - {data.price}£ <Icon><BsTrash /></Icon></Phone>
-                </>
-              )
+              phones.map((data, index) => <Phone key={index}>{data.name} - {data.price}£ <Icon><BsTrash id={data._id} onClick={deletePhone} /></Icon></Phone> )
           }
         </Container>
       )
@@ -51,6 +59,7 @@ const Phone = styled.span`
 `;
 
 const Icon = styled.span`
+    cursor: pointer;
     vertical-align: middle;
 `;
 
