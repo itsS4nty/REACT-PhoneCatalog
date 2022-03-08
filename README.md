@@ -6,7 +6,8 @@ I created 2 routes ('/' and '/admin').
 '/admin' -> Here, we can create new Manufacturers, new phones and we can delete phones too. I didn't have
 time to create the update-phone function on the Frontend, but with Postman (or another app) we can update
 the phones.
-Body example for the request (http://url/update-phone): ```json
+Body example for the request (http://url/update-phone):
+```json 
 {
     "name": "Samsung Galaxy S20 Plus",
     "manufacturer": "Samsung",
@@ -18,7 +19,8 @@ Body example for the request (http://url/update-phone): ```json
     "processor": "Qualcomm Snapdragon 865",
     "ram": 16,
     "storage": 256
-}```
+}
+```
 ## Run
 To run the frontend, you need to go to the front-end folder, and write this commands:
 ```
