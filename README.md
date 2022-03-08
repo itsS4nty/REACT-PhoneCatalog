@@ -30,7 +30,7 @@ npm start
 ```
 The backend is hosted on my own server, so you don't need to do anything on that. 
 ### Run it in local
-But, in case that you want to run it in local, you have to go to the rest-api folder and write this commands:
+In case that you want to run it in local, you have to go to the rest-api folder and write this commands:
 ```
 npm i
 npm run dev
