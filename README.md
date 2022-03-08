@@ -39,5 +39,5 @@ In the root folder, you can see a folder that contains data for the database. <b
 To restore this data, you should write this commands:
 ```
 cd PhoneCatalog
-mongorestore -d PhoneCatalog . d
+mongorestore -d PhoneCatalog .
 ```
