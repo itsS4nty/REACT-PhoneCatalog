@@ -6,7 +6,7 @@ I created 2 routes ('**/**' and '**/admin**'). <br />
 '**/admin**' -> Here, we can *create* new **manufacturers**, new **phones** and we can *delete* **phones** too. I didn't have
 time to *create* the **update-phone** function on the Frontend, but with Postman (or another app) you can *update*
 the **phones**. <br />
-**Body example for the request (http://url/update-phone):**
+**Body example for the update request (http://url/update-phone):**
 ```json 
 {
     "name": "Samsung Galaxy S20 Plus",
