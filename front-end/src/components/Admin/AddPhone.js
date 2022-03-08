@@ -1,26 +1,29 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { change_variable } from '../../reducers/newManufacturerReducer';
 
 const AddPhone = () => {
   const [manufacturers, setManufacturers] = useState([]);
   const [newPhoneData, setNewPhoneData] = useState({});
-  const [image, setImage] = useState();
+  const [image, setImage] = useState({file: ''});
+  const variable = useSelector(change_variable);
   useEffect(() => {
     const source = axios.CancelToken.source();
     axios.get('/manufacturers', { cancelToken: source.token, }).then(({ data }) => {
-      setManufacturers(data)
+      setManufacturers(data);
     })
     .catch((err) => {
-        console.log(err);
+      console.log(err);
     });
     return () => {
-        source.cancel();
+      source.cancel();
     };
-  }, [])
+  }, [variable])
   const handleOnChange = (e) => {
     if(e.target.name === 'image') {
-      setImage(e.target.files[0]);
+      setImage({file: e.target.files[0]});
       return;
     }
     setNewPhoneData({
@@ -29,7 +32,16 @@ const AddPhone = () => {
     });
   }
   const createPhone = (e) => {
-    e.preventDefaukt
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('phoneImage', image.file, `image_${newPhoneData.name}.jpg`);
+    formData.append('data', JSON.stringify(newPhoneData));
+    axios.post('/create-phone', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }}).then((data) => {
+      console.log(data)
+    })
   }
   return (
     <Container>
@@ -49,7 +61,7 @@ const AddPhone = () => {
         <InputText type='text' name='processor' placeholder='Processor' onChange={handleOnChange}  />
         <InputText type='number' name='ram' placeholder='RAM' onChange={handleOnChange}  />
         <InputText type='number' name='storage' placeholder='Storage' onChange={handleOnChange}  />
-        <InputSubmit type='submit'>Create</InputSubmit>
+        <InputSubmit type='submit' onClick={createPhone}>Create</InputSubmit>
       </Form>
     </Container>
   )

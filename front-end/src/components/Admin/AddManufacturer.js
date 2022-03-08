@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { showToast } from '../../helpers/toast';
+import { updateVariable } from '../../reducers/newManufacturerReducer';
 
 const AddManufacturer = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState({ name: '' });
   const handleOnChange = (e) => {
     // In case we have more inputs, we could use this for all of them
@@ -22,6 +25,7 @@ const AddManufacturer = () => {
       if(data.status === 200) {
         showToast('ok', 'Manufacturer created.');
         setName({ name: '' });
+        dispatch(updateVariable());
       }
     }).catch((err) => {
       showToast('err',err.response.statusText);

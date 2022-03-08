@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const PhonePrice = ({ price }) => {
     return (
         <Container>
-            <Price>{price}$</Price>
+            <Price>{price}£</Price>
         </Container>
     )
 }

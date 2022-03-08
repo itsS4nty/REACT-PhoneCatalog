@@ -3,12 +3,14 @@ import { Slide, ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 import AddManufacturer from '../components/Admin/AddManufacturer';
 import AddPhone from '../components/Admin/AddPhone';
+import DeletePhones from '../components/Admin/DeletePhones';
 
 const Admin = () => {
   return (
     <Container>
       <AddManufacturer />
       <AddPhone />
+      <DeletePhones />
       <ToastContainer
         position='bottom-center'
         hideProgressBar={false}
@@ -30,14 +32,16 @@ const Container = styled.div`
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
-    "addManufacturer addManufacturer"
-    "addPhone addPhone";
+    'addManufacturer addManufacturer'
+    'addPhone addPhone'
+    'deletePhones deletePhones';
     background-color: #fff;
     color: #444;
     @media (max-width: 768px) {
         grid-template-areas: 
           'addManufacturer addManufacturer'
           'addPhone addPhone'
+          'deletePhones deletePhones'
         ;
     }
     overflow: ${props => props.darkContainer ? 'hidden' : 'auto'};
