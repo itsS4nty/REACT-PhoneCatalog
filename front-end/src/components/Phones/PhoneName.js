@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const Name = styled.p`
-    font-size: 1.5rem;
+    font-size: 1.2em;
     font-weight: bold;
 `;
 

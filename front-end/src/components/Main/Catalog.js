@@ -1,19 +1,36 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { manufacturers, minPrice, maxPrice, storage } from '../../reducers/filtersReducer';
 import PhoneCard from '../Phones/PhoneCard';
 
-const Catalog = () => {
-    const data = {
-        name: 'iPhone 11',
-        ram: '4',
-        color: 'Red',
-        price: 599,
-        image: 'https://cdn.palbincdn.com/users/40360/images/iphone11-red-select-2019_GEO_EMEA-1610302194.png'
-    }
+const Catalog = ({ phoneInfo }) => {
+    const [phones, setPhones] = useState([]);
+    const manufacturersData = useSelector(manufacturers);
+    const minPriceData = useSelector(minPrice);
+    const maxPriceData = useSelector(maxPrice);
+    const storageData = useSelector(storage);
+    useEffect(() => {
+        const source = axios.CancelToken.source();
+        console.log(manufacturersData.join(','))
+        axios.get(`/phones?minPrice=${minPriceData}&maxPrice=${maxPriceData}&manufacturers=${manufacturersData.join(',')}&storage=${storageData}`, { cancelToken: source.token, }).then(({ data }) => {
+            setPhones(data)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+        return () => {
+            source.cancel();
+        };
+    }, [manufacturersData, maxPriceData, minPriceData, storageData])
+    
     return (
         <Container>
             <PhonesContainer>
-                <PhoneCard data={data} />
+                {
+                    phones.map((data, index) => <PhoneCard key={index} data={data} phoneInfo={phoneInfo} /> )
+                }
             </PhonesContainer>
         </Container>
     )

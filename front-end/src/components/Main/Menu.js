@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components';
 import NavBarItems from '../Menu/NavBarItems';
 
-const Menu = () => {
+const Menu = ({ handleOnClick, activeManufacturers }) => {
     return (
         <Container>
-            <NavBarItems />
+            <NavBarItems handleOnClick={handleOnClick} activeManufacturers={activeManufacturers} />
         </Container>
       )
     }

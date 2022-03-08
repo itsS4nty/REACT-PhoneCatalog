@@ -5,7 +5,7 @@ const PhoneImage = ({ img, name }) => {
 
     return (
         <Container>
-            <Img src={img} alt={name} />
+            <Img src={`http://localhost:3030/images/${img}`} alt={name} />
         </Container>
     )
 }
@@ -16,8 +16,8 @@ const Container = styled.div`
 `;
 
 const Img = styled.img`
-    width: 10vw;
-    height: 20vh;
+    width: 9em;
+    height: 10.5em;
 `;
 
 

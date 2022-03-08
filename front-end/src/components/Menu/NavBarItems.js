@@ -1,22 +1,25 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { updateMaxPriceRange, updateMinPriceRange } from '../../reducers/filtersReducer';
 import ManufacturerOptions from './ManufacturerOptions';
-import PhoneColor from './PhoneColor';
-import PhoneRam from './PhoneRam';
 import PriceRange from './PriceRange';
 import StorageOptions from './StorageOptions';
 
-const NavBarItems = () => {
+const NavBarItems = ({ handleOnClick, activeManufacturers }) => {
+  const dispatch = useDispatch();
+  const x = ({ min, max }) => {
+    dispatch(updateMinPriceRange(min));
+    dispatch(updateMaxPriceRange(max));
+  }
   return (
     <Container>
-      <ManufacturerOptions />
+      <ManufacturerOptions handleOnClick={handleOnClick} activeManufacturers={activeManufacturers} />
       <PriceRange
       min={0}
       max={1000}
-      onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+      onChange={x}
       />
-      <PhoneColor />
-      <PhoneRam />
       <StorageOptions />
     </Container>
   )

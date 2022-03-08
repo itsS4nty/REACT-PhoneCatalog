@@ -2,10 +2,10 @@ import React from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai'
 import styled from 'styled-components';
 
-const MoreInfo = () => {
+const MoreInfo = ({ onClick, id }) => {
   return (
     <Container>
-      <AiFillPlusCircle /><span>Show me more</span>
+      <AiFillPlusCircle /><span id={id} onClick={onClick}>Show me more</span>
     </Container>
   )
 }
@@ -13,7 +13,6 @@ const MoreInfo = () => {
 const Container = styled.div`
   cursor: pointer;
   display: flex;
-  margin-top: 1.25em;
   color: gray;
   align-items: center;
   justify-content: center;

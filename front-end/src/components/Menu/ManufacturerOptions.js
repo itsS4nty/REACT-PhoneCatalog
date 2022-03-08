@@ -1,26 +1,42 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { updateManufacturers } from '../../reducers/filtersReducer';
 
 const ManufacturerOptions = () => {
+  const [activeManufacturers, setActiveManufacturers] = useState({});
+  const dispatch = useDispatch();
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    setActiveManufacturers({
+      ...activeManufacturers,
+      [e.target.id]: !activeManufacturers[e.target.id],
+    })
+    dispatch(updateManufacturers(e.target.value));
+  }
+  const [manufacturers, setManufacturers] = useState([]);
+  useEffect(() => {
+      const source = axios.CancelToken.source();
+      axios.get('/manufacturers', { cancelToken: source.token, }).then(({ data }) => {
+        setManufacturers(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      return () => {
+        source.cancel();
+      };
+  }, [])
+  
   return (
     <>
       <hr />
       <Title>Manufacturer</Title>
       <Container>
-        <Button type='button' value='Apple' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
-        <Button type='button' value='Samsung' />
+        {
+          manufacturers.map((data, index) => <Button key={index} id={data._id} type='button' value={data.name} onClick={handleOnClick} active={activeManufacturers[data._id]} />)
+        }
       </Container>
       <hr />
     </>
@@ -41,14 +57,24 @@ const Container = styled.div`
 `;
 
 const Button = styled.input`
-  background-color: transparent;
-  border: 1px solid black;
+  cursor: pointer;
+  background-color: ${props => props.active ? '#cbcef8' : 'transparent'};
+  border: 1px solid ${props => props.active ? 'white' : 'black'};
   border-radius: 5px;
   margin-bottom: 1em;
   width: 10em;
   height: 2.5em;
+  transition: all .1s ease-in-out;
+  font-weight: bold;
+  font-size: .9em;
+  color: ${props => props.active ? 'white' : 'black'};
   @media (max-width: 768px) {
     margin-right: 1em;
+  }
+  &:hover {
+    background-color: #cbcef8;
+    border-color: white;
+    color: white;
   }
 `;
 
