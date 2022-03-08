@@ -42,11 +42,11 @@ cd PhoneCatalog
 mongorestore -d PhoneCatalog .
 ```
 **IMPORTANT!**<br />
-If you run the server in local, you have to edit the Axios default URL. Go to **front-end/src/App.js** and modify this line
+If you run the server in local, you have to edit the Axios default URL. Go to **front-end/src/App.js** and modify this line:
 ```
 axios.defaults.baseURL = 'http://ip:3030/';
 ```
-And change it to look like this 
+And change it to look like this:
 ```
 axios.defaults.baseURL = 'http://localhost:3030/';
 ```
