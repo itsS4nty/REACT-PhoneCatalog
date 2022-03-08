@@ -21,16 +21,23 @@ the **phones**. <br />
     "storage": 256
 }
 ```
-## Run
+## Run options
+### Run it remotelly
 To run the frontend, you need to go to the front-end folder, and write this commands:
 ```
 npm i
 npm start
 ```
-The backend is hosted on my own server, so you don't need to do anything on that. But, in case that
-you want to run it in local, you have to go to the rest-api folder and write this commands:
+The backend is hosted on my own server, so you don't need to do anything on that. 
+### Run it in local
+But, in case that you want to run it in local, you have to go to the rest-api folder and write this commands:
 ```
 npm i
 npm run dev
 ```
-In the root folder, you can see a script that creates a database in MongoDB with data.
+In the root folder, you can see a folder that contains data for the database. <br />
+To restore this data, you should write this commands:
+```
+cd PhoneCatalog
+mongorestore -d PhoneCatalog . d
+```
