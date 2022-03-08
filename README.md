@@ -1,12 +1,12 @@
 # REACT-PhoneCatalog
 ## The project
-To make this project, I decided to use **ExpressJS** for the server and **MongoDB** to store all the data.
-I created 2 routes ('/' and '/admin').
-'/' -> We can see all the phones and a lateral menu with filters that we can use.
-'/admin' -> Here, we can create new Manufacturers, new phones and we can delete phones too. I didn't have
-time to create the update-phone function on the Frontend, but with Postman (or another app) we can update
-the phones.
-Body example for the request (http://url/update-phone):
+To make this project, I decided to use **ExpressJS** for the server and **MongoDB** to store all the data.<br />
+I created 2 routes ('**/**' and '**/admin**'). <br />
+'**/**' -> We can see all the phones and a lateral menu with filters that we can use. <br />
+'**/admin**' -> Here, we can *create* new **manufacturers**, new **phones** and we can *delete* **phones** too. I didn't have
+time to *create* the **update-phone** function on the Frontend, but with Postman (or another app) we can *update*
+the **phones**. <br />
+**Body example for the request (http://url/update-phone):**
 ```json 
 {
     "name": "Samsung Galaxy S20 Plus",
