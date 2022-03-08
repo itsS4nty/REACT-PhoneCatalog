@@ -18,8 +18,7 @@ Body example for the request (http://url/update-phone): ```json
     "processor": "Qualcomm Snapdragon 865",
     "ram": 16,
     "storage": 256
-}
-```
+}```
 ## Run
 To run the frontend, you need to go to the front-end folder, and write this commands:
 ```
