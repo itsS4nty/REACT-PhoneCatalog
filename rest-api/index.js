@@ -4,11 +4,22 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const cors = require('cors');
+const multer = require('multer');
 const PORT = 3030 || process.env.PORT;
 
 mongoose.connect('mongodb://localhost/PhoneCatalog', (err, res) => {
     if(err) throw err;
 });
+
+const storage	=	multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now() + '.' + mime.extension(file.mimetype));
+  }
+});
+const upload = multer({ storage : storage }).array('userPic');
 
 const phoneModels = require('./models/phones')(app, mongoose);
 const manufacturersModels = require('./models/manufacturers')(app, mongoose);
@@ -25,7 +36,12 @@ app.use(router)
 
 router.route('/phones').get(PhonesController.findAllPhones);
 
-router.route('/create-phone').post(PhonesController.createPhone);
+// router.route('/create-phone').post(PhonesController.createPhone);
+router.post('/create-phone', (req, res) => {
+  upload(req, res, (err) => {
+    console.log(req.files);
+  })
+})
 
 router.route('/phone/:id')
     .get(PhonesController.findPhoneById)
@@ -35,8 +51,6 @@ router.route('/phone/:id')
 router.route('/manufacturers').get(ManufacturerController.findAllManufacturers);
 
 router.route('/create-manufacturer').post(ManufacturerController.createManufacturer);
-
-router.route('/manufacturer/:id').delete(ManufacturerController.deleteManufacturer);
 
 app.use('/api', router);
 app.use('/images', express.static('./images/'))
