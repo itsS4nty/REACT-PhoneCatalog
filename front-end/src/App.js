@@ -7,14 +7,12 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { Redirect } from 'react-router'
 import Admin from "./views/Admin";
 
 axios.defaults.baseURL = 'http://193.70.1.70:5050/';
 
 function App() {
   return (
-    // <MainContainer>
     <Router>
         <Routes>
           <Route exact path='/admin' element={ <Admin /> } />
@@ -22,14 +20,8 @@ function App() {
           <Route path='*' element={ <Main /> } />
         </Routes>
     </Router>
-    // </MainContainer>
   );
 }
 
-const MainContainer = styled.div`
-  background-color: aliceblue;
-  height: 100vh;
-  width: 100vw;
-`;
 
 export default App;
