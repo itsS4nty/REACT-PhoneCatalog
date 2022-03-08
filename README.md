@@ -4,7 +4,7 @@ To make this project, I decided to use **ExpressJS** for the server and **MongoD
 I created 2 routes ('**/**' and '**/admin**'). <br />
 '**/**' -> We can see all the phones and a lateral menu with filters that we can use. <br />
 '**/admin**' -> Here, we can *create* new **manufacturers**, new **phones** and we can *delete* **phones** too. I didn't have
-time to *create* the **update-phone** function on the Frontend, but with Postman (or another app) we can *update*
+time to *create* the **update-phone** function on the Frontend, but with Postman (or another app) you can *update*
 the **phones**. <br />
 **Body example for the request (http://url/update-phone):**
 ```json 
