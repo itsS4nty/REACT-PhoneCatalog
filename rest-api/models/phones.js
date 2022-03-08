@@ -9,6 +9,7 @@ exports = module.exports = (app, mongoose) => {
         screen: { type: String },
         processor: { type: String },
         ram: { type: Number },
+        storage: { type: Number },
 	});
 	mongoose.model('phones', PhonesSchema);
 };
